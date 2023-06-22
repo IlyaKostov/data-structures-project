@@ -6,8 +6,9 @@ from src.stack import Node, Stack
 
 class TestNode(unittest.TestCase):
 
-    n1 = Node(5, None)
-    n2 = Node('q', n1)
+    def setUp(self):
+        self.n1 = Node(5, None)
+        self.n2 = Node('q', self.n1)
 
     def test_node(self):
         self.assertEqual(self.n1.data, 5)
@@ -15,11 +16,12 @@ class TestNode(unittest.TestCase):
         self.assertEqual(self.n2.next_node, self.n1)
 
 
-class TestStackPush(unittest.TestCase):
+class TestStack(unittest.TestCase):
 
-    stack = Stack()
-    stack.push('1')
-    stack.push('2')
+    def setUp(self):
+        self.stack = Stack()
+        self.stack.push('1')
+        self.stack.push('2')
 
     def test_push(self):
         self.assertEqual(self.stack.top.data, '2')
@@ -30,3 +32,11 @@ class TestStackPush(unittest.TestCase):
         with self.assertRaises(AttributeError):
             self.stack.top.next_node.next_node.data
 
+    def test_pop(self):
+        data = self.stack.pop()
+        self.assertEqual(data, '2')
+        self.assertEqual(self.stack.top.data, '1')
+        self.stack.pop()
+        self.assertEqual(self.stack.top, None)
+        data2 = self.stack.pop()
+        self.assertEqual(data2, None)
