@@ -40,3 +40,6 @@ class TestStack(unittest.TestCase):
         self.assertEqual(self.stack.top, None)
         data2 = self.stack.pop()
         self.assertEqual(data2, None)
+
+    def test_stack_str(self):
+        self.assertEqual(str(self.stack), '2\n1')
