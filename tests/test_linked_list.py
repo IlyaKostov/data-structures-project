@@ -34,3 +34,28 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.ll.head.next_node.data, {'id': 1})
         self.assertEqual(self.ll.tail.next_node, None)
         self.assertEqual(self.ll.tail.data, {'id': 1})
+
+    def test_to_list(self):
+        lst = self.ll.to_list()
+        self.assertEqual(lst, [])
+        self.ll.insert_beginning({'id': 1, 'username': 'lazzy508509'})
+        self.ll.insert_at_end({'id': 2, 'username': 'mik.roz'})
+        self.ll.insert_at_end({'id': 3, 'username': 'mosh_s'})
+        self.ll.insert_beginning({'id': 0, 'username': 'serebro'})
+        lst = self.ll.to_list()
+        self.assertEqual(lst[0], {'id': 0, 'username': 'serebro'})
+        self.assertEqual(lst[1], {'id': 1, 'username': 'lazzy508509'})
+        self.assertEqual(lst[3], {'id': 3, 'username': 'mosh_s'})
+
+    def test_get_data_by_id(self):
+        self.assertEqual(self.ll.get_data_by_id(1), None)
+        self.ll.insert_at_end({'id': 3, 'username': 'mosh_s'})
+        self.ll.insert_beginning({'id': 0, 'username': 'serebro'})
+        self.assertEqual(self.ll.get_data_by_id(3), {'id': 3, 'username': 'mosh_s'})
+
+    def test_get_data_by_id_type_error(self):
+        self.ll.insert_beginning({'id': 1, 'username': 'lazzy508509'})
+        self.ll.insert_at_end('idusername')
+        self.ll.insert_at_end({'id': 2, 'username': 'mosh_s'})
+        with self.assertRaises(TypeError):
+            self.ll.get_data_by_id(2)

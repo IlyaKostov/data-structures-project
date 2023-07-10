@@ -4,6 +4,7 @@ class Node:
         self.data = data
         self.next_node = None
 
+
 class LinkedList:
     """Класс для односвязного списка"""
     def __init__(self):
@@ -43,3 +44,26 @@ class LinkedList:
 
         ll_string += 'None'
         return ll_string
+
+    def to_list(self):
+        lst = []
+        node = self.head
+        if node is None:
+            return lst
+
+        while node:
+            lst.append(node.data)
+            node = node.next_node
+        return lst
+
+    def get_data_by_id(self, value):
+        node = self.head
+        if node is None:
+            return node
+        try:
+            while node:
+                if node.data['id'] == value:
+                    return node.data
+                node = node.next_node
+        except TypeError:
+            print('Данные не являются словарем или в словаре нет id.')
